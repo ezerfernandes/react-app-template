@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import MouseIcon from '@material-ui/icons/Mouse';
+import MyPayPalButton from "./components/MyPalPalButton";
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -27,7 +28,8 @@ function App() {
         >
           Learn React
         </a>
-  <p>The current time is {currentTime}.</p>
+      <p>The current time is {currentTime}.</p>
+      <p><MyPayPalButton /></p>
       </header>
     </div>
   );
