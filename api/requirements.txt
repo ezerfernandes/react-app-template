@@ -10,3 +10,4 @@ Flask-Babel==1.0.0
 Babel==2.8.0
 pytz==2019.3
 Flask-RESTful==0.3.8
+connexion==2.6.0
