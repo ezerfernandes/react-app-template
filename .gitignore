@@ -24,3 +24,6 @@ yarn-error.log*
 
 venv
 __pycache__
+# put these on .gitignore when it is a real app. 
+#.flaskenv 
+#settings.cfg
