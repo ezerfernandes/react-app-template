@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.scss';
 import MouseIcon from '@material-ui/icons/Mouse';
 import MyPayPalButton from "./components/MyPalPalButton";
+import { Button } from 'semantic-ui-react';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -30,6 +31,10 @@ function App() {
         </a>
       <p>The current time is {currentTime}.</p>
       <p><MyPayPalButton /></p>
+      <div>
+        <Button primary>Primary</Button>
+        <Button secondary>Secondary</Button>
+      </div>
       </header>
     </div>
   );
