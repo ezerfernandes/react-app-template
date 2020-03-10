@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.scss';
 import MouseIcon from '@material-ui/icons/Mouse';
 import MyPayPalButton from "./components/MyPalPalButton";
+import LoginBoxWithVerticalDivider from './components/LoginBoxWithVerticalDivider';
 import { Button, Icon, Label } from 'semantic-ui-react';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         </Button>
         
       </div>
+      <LoginBoxWithVerticalDivider />
       </header>
     </div>
   );
