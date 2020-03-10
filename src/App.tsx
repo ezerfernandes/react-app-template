@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.scss';
 import MouseIcon from '@material-ui/icons/Mouse';
 import MyPayPalButton from "./components/MyPalPalButton";
-import { Button } from 'semantic-ui-react';
+import { Button, Icon, Label } from 'semantic-ui-react';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -34,6 +34,17 @@ function App() {
       <div>
         <Button primary>Primary</Button>
         <Button secondary>Secondary</Button>
+      </div>
+      <div>
+        <Button as='div' labelPosition='left'>
+          <Label as='a' basic>
+            2,048
+          </Label>
+          <Button icon>
+            <Icon name='fork' />
+          </Button>
+        </Button>
+        
       </div>
       </header>
     </div>
