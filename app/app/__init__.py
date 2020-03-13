@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 
 db = SQLAlchemy()
@@ -15,13 +16,3 @@ def create_app():
         from . import routes
         db.create_all()
         return app
-
-
-    
-
-def create_app():
-    app = Flask(__name__)
-    app.config.from_envvar("APPLICATION_SETTINGS")
-    app.config['MAIL_ENABLED'] = os.environ.get("MAIL_ENABLED", default="false").lower() \
-        in ("1", "t", "true")
-    return app
