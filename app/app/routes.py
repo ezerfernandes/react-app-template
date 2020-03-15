@@ -1,12 +1,14 @@
-from flask import request, render_template, make_response, url_for, jsonify, abort
+from flask import request, render_template, make_response, url_for, jsonify, abort, g
 from flask import current_app as app
 from flask_login import LoginManager
+from flask_httpauth import HTTPBasicAuth
 from datetime import datetime as dt
 from .models import db, User
 import time
 
 
 login_manager = LoginManager()
+auth = HTTPBasicAuth()
 
 
 @login_manager.user_loader
@@ -33,11 +35,21 @@ def new_user():
     #return jsonify({ 'username': user.username }), 201, {'Location': url_for('get_user', id = user.id, _external = True)}
 
 
-@app.route('/hello', methods=['GET'])
-def test():
-    return "Hello world!"
+@auth.verify_password
+def verify_password(username, password):
+    user = User.query.filter_by(username=username).first()
+    if not user or not user.verify_password(password):
+        return False
+    g.user = user
+    return True
 
 
-@app.route('/time')
+@app.route('/resource') #example
+@auth.login_required
+def get_resource():
+    return jsonify({'data': f'Hello, {g.user.username}!'})
+
+
+@app.route('/time') #example
 def get_current_time():
     return {'time': time.time()}
