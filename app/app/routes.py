@@ -1,4 +1,4 @@
-from flask import request, render_template, make_response
+from flask import request, render_template, make_response, url_for, jsonify, abort
 from flask import current_app as app
 from flask_login import LoginManager
 from datetime import datetime as dt
@@ -9,25 +9,28 @@ import time
 login_manager = LoginManager()
 
 
-@app.route('/', methods=['GET'])
-def create_user():
-    """Create a user."""
-    username = request.args.get('user')
-    email = request.args.get('email')
-    if username and email:
-        new_user = User(username=username,
-                        email=email,
-                        created=dt.now(),
-                        bio="In West Philadelphia born n raised...",
-                        admin=False)
-        db.session.add(new_user)  # Adds new User record to database
-        db.session.commit()  # Commits all changes
-    return make_response(f"{new_user} successfully created!")
-
-
 @login_manager.user_loader
 def user_loader(user_id):
     return User,query.get(user_id)
+
+
+@app.route('/user/create', methods = ['POST'])
+def new_user():
+    username = request.json.get('username')
+    email = request.json.get('email')
+    password = request.json.get('password')
+    if username is None or email is None or password is None:
+        abort(400) # missing arguments
+    if User.query.filter_by(username=username).first() is not None:
+        abort(400) # existing user
+    if User.query.filter_by(email=email).first() is not None:
+        abort(400) # existing user
+    user = User(username=username, email=email)
+    user.set_password(password)
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({ 'username': user.username }), 201
+    #return jsonify({ 'username': user.username }), 201, {'Location': url_for('get_user', id = user.id, _external = True)}
 
 
 @app.route('/hello', methods=['GET'])
